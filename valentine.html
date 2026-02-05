@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Valentine's Proposal</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Cute, playful font */
+            text-align: center;
+            background: linear-gradient(to bottom, #ffe6f2, #ffb3ba); /* Soft pink gradient */
+            background-image: url('https://i.giphy.com/media/3o7TKz9bX9v8Z8Z8Z8/giphy.gif'); /* Cute heart GIF background (replace with any GIF URL if needed) */
+            background-size: cover;
+            background-repeat: no-repeat;
+            color: #d63384;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+            animation: bounce 2s infinite; /* Bouncing title */
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        button {
+            font-size: 1.2em;
+            padding: 15px 30px;
+            margin: 10px;
+            border: 2px solid #ff69b4;
+            border-radius: 25px; /* Rounded for cuteness */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #yes {
+            background-color: #ff69b4;
+            color: white;
+        }
+        #yes:hover {
+            background-color: #ff1493;
+            transform: scale(1.1); /* Grow on hover */
+        }
+        #no {
+            background-color: #ffcccc;
+            color: #d63384;
+            position: absolute;
+            animation: wiggle 1s infinite; /* Wiggle animation */
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        #no:hover {
+            background-color: #ffb3ba;
+            animation: wiggle 0.5s infinite; /* Faster wiggle on hover */
+        }
+        #message {
+            display: none;
+            font-size: 1.5em;
+            margin-top: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            font-size: 2em;
+            color: #ff69b4;
+            animation: float 6s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>💖 Sahil wants you to be his valentine? 💖</h1>
+    <button id="yes">Yes 😍</button>
+    <button id="no">No 😏</button>
+    <div id="message"></div>
+
+    <script>
+        const noButton = document.getElementById('no');
+        const yesButton = document.getElementById('yes');
+        const message = document.getElementById('message');
+        const body = document.body;
+
+        // Function to move the "No" button to a random position
+        function moveNoButton() {
+            const maxX = window.innerWidth - noButton.offsetWidth;
+            const maxY = window.innerHeight - noButton.offsetHeight;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            noButton.style.left = randomX + 'px';
+            noButton.style.top = randomY + 'px';
+        }
+
+        // Move the button on click or hover
+        noButton.addEventListener('click', moveNoButton);
+        noButton.addEventListener('mouseover', moveNoButton);
+
+        // Handle "Yes" click with confetti hearts
+        yesButton.addEventListener('click', () => {
+            message.textContent = "Yay! Sahil is so happy! ❤️🎉";
+            message.style.display = 'block';
+            noButton.style.display = 'none';
+            yesButton.style.display = 'none';
+
+            // Add floating hearts animation
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = '💖';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                body.appendChild(heart);
+
+                // Remove heart after animation
+                setTimeout(() => body.removeChild(heart), 6000);
+            }
+        });
+    </script>
+</body>
+</html>
